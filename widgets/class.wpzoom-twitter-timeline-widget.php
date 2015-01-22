@@ -98,8 +98,6 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
-
-		var_dump($instance);
 		?>
 
 		<p>
