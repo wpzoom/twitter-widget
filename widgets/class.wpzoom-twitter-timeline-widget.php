@@ -16,7 +16,7 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 			'wpzoom_twitter_timeline',
 			esc_html__( 'Twitter Timeline by WPZOOM', 'wpzoom-twitter-timeline' ),
 			array(
-				'classname'   => 'wpzoom_twitter_timeline',
+				'classname'   => 'zoom-twitter-timeline',
 				'description' => __( 'Displays a Twitter Timeline.', 'wpzoom-twitter-timeline' ),
 			)
 		);
