@@ -7,8 +7,9 @@ function wpzoom_twitter_timeline_action_links( $links, $file ) {
 	}
 
 	$settings_link = sprintf(
-		esc_html__('<a href="%1$s">Settings</a>', 'wpzoom-twitter-timeline'),
-		menu_page_url( 'wpzoom_twitter_timeline', false )
+		'<a href="%1$s">%2$s</a>',
+		menu_page_url( 'wpzoom_twitter_timeline', false ),
+		esc_html__('Settings', 'wpzoom-twitter-timeline')
 	);
 
 	array_unshift( $links, $settings_link );
