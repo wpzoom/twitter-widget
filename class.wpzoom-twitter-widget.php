@@ -1,6 +1,6 @@
 <?php
 
-class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
+class Wpzoom_Twitter_Widget extends WP_Widget {
 	/**
 	 * @var array
 	 */
@@ -13,16 +13,16 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 
 	public function __construct() {
 		parent::__construct(
-			'wpzoom_twitter_timeline',
-			esc_html__( 'Twitter Timeline by WPZOOM', 'wpzoom-twitter-timeline' ),
+			'wpzoom_twitter_widget',
+			esc_html__( 'Twitter Widget by WPZOOM', 'wpzoom-twitter-widget' ),
 			array(
-				'classname'   => 'zoom-twitter-timeline',
-				'description' => __( 'Displays a Twitter Timeline.', 'wpzoom-twitter-timeline' ),
+				'classname'   => 'zoom-twitter-widget',
+				'description' => __( 'Displays a Twitter Timeline.', 'wpzoom-twitter-widget' ),
 			)
 		);
 
 		$this->defaults = array(
-			'title'                => esc_html__( 'Tweets', 'wpzoom-twitter-timeline' ),
+			'title'                => esc_html__( 'Tweets', 'wpzoom-twitter-widget' ),
 			'tweet-limit'          => 5,
 			'screen-name'          => '',
 			'show-timestamp'       => true,
@@ -101,33 +101,33 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'wpzoom-twitter-timeline' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'wpzoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"/>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'screen-name' ); ?>"><?php esc_html_e( 'Twitter Username:', 'wpzoom-twitter-timeline' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'screen-name' ); ?>"><?php esc_html_e( 'Twitter Username:', 'wpzoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'screen-name' ); ?>" name="<?php echo $this->get_field_name( 'screen-name' ); ?>" type="text" value="<?php echo esc_attr( $instance['screen-name'] ); ?>"/>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'tweet-limit' ); ?>"><?php esc_html_e( '# of Tweets Shown:', 'wpzoom-twitter-timeline' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'tweet-limit' ); ?>"><?php esc_html_e( '# of Tweets Shown:', 'wpzoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'tweet-limit' ); ?>" name="<?php echo $this->get_field_name( 'tweet-limit' ); ?>" type="number" min="1" max="20" value="<?php echo esc_attr( $instance['tweet-limit'] ); ?>"/>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-timestamp'] ); ?> id="<?php echo $this->get_field_id( 'show-timestamp' ); ?>" name="<?php echo $this->get_field_name( 'show-timestamp' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-timestamp' ); ?>"><?php _e( 'Show Timestamp', 'wpzoom-twitter-timeline' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-timestamp' ); ?>"><?php _e( 'Show Timestamp', 'wpzoom-twitter-widget' ); ?></label>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-follow-button'] ); ?> id="<?php echo $this->get_field_id( 'show-follow-button' ); ?>" name="<?php echo $this->get_field_name( 'show-follow-button' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-follow-button' ); ?>"><?php _e(' Display Follow me button', 'wpzoom-twitter-timeline' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-follow-button' ); ?>"><?php _e(' Display Follow me button', 'wpzoom-twitter-widget' ); ?></label>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-followers-count'] ); ?> id="<?php echo $this->get_field_id( 'show-followers-count' ); ?>" name="<?php echo $this->get_field_name( 'show-followers-count' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-followers-count' ); ?>"><?php _e(' Show follower count? ', 'wpzoom-twitter-timeline'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-followers-count' ); ?>"><?php _e(' Show follower count? ', 'wpzoom-twitter-widget'); ?></label>
 		</p>
 
 	<?php
@@ -135,7 +135,7 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 
 	protected function display_tweets( $tweets, $instance ) {
 		?>
-		<ul class="zoom-twitter-timeline__items">
+		<ul class="zoom-twitter-widget__items">
 
 			<?php foreach ( $tweets as $tweet ) : ?>
 				<?php
@@ -144,14 +144,14 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 				$time = strtotime( $tweet->created_at );
 				?>
 
-				<li class="zoom-twitter-timeline__item">
-					<p class="zoom-twitter_timeline__message">
+				<li class="zoom-twitter-widget__item">
+					<p class="zoom-twitter_widget__message">
 						<?php echo $text; ?>
 
 						<?php if ( $instance['show-timestamp'] ) : ?>
 
-							<a class="zoom-twitter-timeline__item-permalink" href="<?php echo esc_url( $link ); ?>">
-								<time class="zoom-twitter-timeline__item-timestamp" datetime="<?php echo esc_attr( mysql2date( 'c', $time ) ); ?>">
+							<a class="zoom-twitter-widget__item-permalink" href="<?php echo esc_url( $link ); ?>">
+								<time class="zoom-twitter-widget__item-timestamp" datetime="<?php echo esc_attr( mysql2date( 'c', $time ) ); ?>">
 									<?php echo $this->human_time_diff_maybe( $time ); ?>
 								</time>
 							</a>
@@ -174,7 +174,7 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 		if ( ! $show_follow_button ) return;
 
 		?>
-		<div class="zoom-twitter-timeline__follow-me">
+		<div class="zoom-twitter-widget__follow-me">
 			<a class="twitter-follow-button" href="https://twitter.com/<?php echo esc_attr( $screen_name ); ?>" data-show-count="<?php echo ($show_followers_count ? 'true' : 'false'); ?>">
 				Follow @<?php echo esc_html( $screen_name ); ?>
 			</a>
@@ -199,12 +199,12 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 				<?php
 				if ( 404 == $this->connection->lastHttpCode() ) {
 					printf(
-						__( 'Twitter Timeline: Non-existent username.', 'wpzoom-twitter-timeline' )
+						__( 'Twitter Widget: Non-existent username.', 'wpzoom-twitter-widget' )
 					);
 				} else {
 					printf(
-						__( 'Twitter Timeline misconfigured, check <a href="%1$s" target="_blank">settings page</a> and <a href="%2$s" target="_blank">read instructions</a>. Error code: %3$s.', 'wpzoom-twitter-timeline' ),
-						admin_url( 'options-general.php?page=wpzoom_twitter_timeline' ),
+						__( 'Twitter Widget misconfigured, check <a href="%1$s" target="_blank">settings page</a> and <a href="%2$s" target="_blank">read instructions</a>. Error code: %3$s.', 'wpzoom-twitter-widget' ),
+						admin_url( 'options-general.php?page=wpzoom_twitter_widget' ),
 						'http://www.wpzoom.com/docs/twitter-widget-with-api-version-1-1-setup-instructions/',
 						$this->connection->lastHttpCode()
 					);
@@ -230,12 +230,12 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 			return $cache;
 		}
 
-		require_once dirname( __FILE__ ) . '/../twitteroauth/WPZOOM_Twitter_OAuth.php';
+		require_once dirname( __FILE__ ) . '/twitteroauth/WPZOOM_Twitter_OAuth.php';
 
-		$consumer_key        = get_option( 'wpzoom_twitter_timeline_consumer_key' );
-		$consumer_secret     = get_option( 'wpzoom_twitter_timeline_consumer_secret' );
-		$access_token        = get_option( 'wpzoom_twitter_timeline_access_token' );
-		$access_token_secret = get_option( 'wpzoom_twitter_timeline_access_token_secret' );
+		$consumer_key        = get_option( 'wpzoom_twitter_widget_consumer_key' );
+		$consumer_secret     = get_option( 'wpzoom_twitter_widget_consumer_secret' );
+		$access_token        = get_option( 'wpzoom_twitter_widget_access_token' );
+		$access_token_secret = get_option( 'wpzoom_twitter_widget_access_token_secret' );
 
 		$this->connection = new WPZOOM_TwitterOAuth_TwitterOAuth( $consumer_key, $consumer_secret, $access_token, $access_token_secret );
 
@@ -279,27 +279,27 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 
 	protected function human_time_diff_maybe( $timestamp ) {
 		if ( ( abs( time() - $timestamp ) ) < 86400 ) {
-			return sprintf( __( '%1$s ago', 'wpzoom-twitter-timeline' ), human_time_diff( $timestamp ) );
+			return sprintf( __( '%1$s ago', 'wpzoom-twitter-widget' ), human_time_diff( $timestamp ) );
 		} else {
 			return mysql2date( get_option( 'date_format' ), $timestamp );
 		}
 	}
 
 	public function text_parse_links( $matches ) {
-		return '<a class="zoom-twitter-timeline__message-link" href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+		return '<a class="zoom-twitter-widget__message-link" href="' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
 	}
 
 	public function text_parse_usernames( $matches ) {
-		return '<a class="zoom-twitter-timeline__message-user-link" href="http://twitter.com/' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+		return '<a class="zoom-twitter-widget__message-user-link" href="http://twitter.com/' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
 	}
 
 	private function settings_changed() {
-		$consumer_key        = get_option( 'wpzoom_twitter_timeline_consumer_key' );
-		$consumer_secret     = get_option( 'wpzoom_twitter_timeline_consumer_secret' );
-		$access_token        = get_option( 'wpzoom_twitter_timeline_access_token' );
-		$access_token_secret = get_option( 'wpzoom_twitter_timeline_access_token_secret' );
+		$consumer_key        = get_option( 'wpzoom_twitter_widget_consumer_key' );
+		$consumer_secret     = get_option( 'wpzoom_twitter_widget_consumer_secret' );
+		$access_token        = get_option( 'wpzoom_twitter_widget_access_token' );
+		$access_token_secret = get_option( 'wpzoom_twitter_widget_access_token_secret' );
 
-		$settings_hash = get_option( 'wpzoom_twitter_timeline_settings_hash' );
+		$settings_hash = get_option( 'wpzoom_twitter_widget_settings_hash' );
 
 		$new_settings_hash = md5( $consumer_key . $consumer_secret . $access_token . $access_token_secret );
 
@@ -307,7 +307,7 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 			return false;
 		}
 
-		update_option( 'wpzoom_twitter_timeline_settings_hash', $new_settings_hash );
+		update_option( 'wpzoom_twitter_widget_settings_hash', $new_settings_hash );
 
 		return true;
 	}

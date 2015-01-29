@@ -1,10 +1,10 @@
-=== Twitter Timeline by WPZOOM ===
+=== Twitter Widget by WPZOOM ===
 Contributors: wpzoom, nvartolomei
 Donate link: http://wpzoom.com/
-Tags: twitter, widget, timeline, social networks
+Tags: twitter, widget, timeline, social networks, latest tweets
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 1.0
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,11 +12,11 @@ Displays a Twitter Feed that you can fully customize via CSS.
 
 == Description ==
 
-Twitter Timeline by WPZOOM gives you a WordPress Widget that you can place anywhere you want and be able to fully customize it's design using CSS.
+Twitter Widget by WPZOOM gives you a WordPress Widget that you can place anywhere you want and be able to fully customize it's design using CSS.
 
 = Get Involved =
 
-Looking to contribute code to this plugin? Go ahead and [fork the repository over at GitHub](https://github.com/wpzoom/twitter-timeline/).
+Looking to contribute code to this plugin? Go ahead and [fork the repository over at GitHub](https://github.com/wpzoom/twitter-widget/).
 
 == Frequently Asked Questions ==
 
