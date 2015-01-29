@@ -12,8 +12,7 @@ Displays a Twitter Feed that you can fully customize via CSS.
 
 == Description ==
 
-Twitter Timeline by WPZOOM gives you a WordPress Widget that you can place anywhere you want and be able to fully
-customize it's design using CSS.
+Twitter Timeline by WPZOOM gives you a WordPress Widget that you can place anywhere you want and be able to fully customize it's design using CSS.
 
 = Get Involved =
 

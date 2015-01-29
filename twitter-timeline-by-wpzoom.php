@@ -7,7 +7,7 @@
  * Author: WPZOOM
  * Author URI: http://wpzoom.com/
  * Version: 1.0
- * License: GPL2
+ * License: GPLv2 or later
 */
 
 require_once( plugin_dir_path( __FILE__ ) . 'class.wpzoom-twitter-timeline.php' );
