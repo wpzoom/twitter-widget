@@ -226,7 +226,7 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 	protected function get_tweets( $screen_name, $tweet_limit ) {
 		$transient = 'zoom_twitter_t6e_' . $screen_name . '_' . $tweet_limit;
 
-		if ( false !== ( $cache = get_transient( $transient ) ) ) {
+		if ( false !== ( $cache = get_transient( $transient ) ) && ( ! $this->settings_changed() ) ) {
 			return $cache;
 		}
 
@@ -291,5 +291,24 @@ class Wpzoom_Twitter_Timeline_Widget extends WP_Widget {
 
 	public function text_parse_usernames( $matches ) {
 		return '<a class="zoom-twitter-timeline__message-user-link" href="http://twitter.com/' . $matches[0] . '" target="_blank">' . $matches[0] . '</a>';
+	}
+
+	private function settings_changed() {
+		$consumer_key        = get_option( 'wpzoom_twitter_timeline_consumer_key' );
+		$consumer_secret     = get_option( 'wpzoom_twitter_timeline_consumer_secret' );
+		$access_token        = get_option( 'wpzoom_twitter_timeline_access_token' );
+		$access_token_secret = get_option( 'wpzoom_twitter_timeline_access_token_secret' );
+
+		$settings_hash = get_option( 'wpzoom_twitter_timeline_settings_hash' );
+
+		$new_settings_hash = md5( $consumer_key . $consumer_secret . $access_token . $access_token_secret );
+
+		if ( $settings_hash == $new_settings_hash ) {
+			return false;
+		}
+
+		update_option( 'wpzoom_twitter_timeline_settings_hash', $new_settings_hash );
+
+		return true;
 	}
 }
