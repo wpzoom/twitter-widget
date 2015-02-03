@@ -1,6 +1,6 @@
 <?php
 
-class Wpzoom_Twitter_Widget extends WP_Widget {
+class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 	/**
 	 * @var array
 	 */
@@ -13,22 +13,41 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 
 	public function __construct() {
 		parent::__construct(
-			'wpzoom_twitter_widget',
-			esc_html__( 'Twitter Widget by WPZOOM', 'wpzoom-twitter-widget' ),
+			'zoom_twitter_widget',
+			esc_html__( 'Twitter Widget by WPZOOM', 'zoom-twitter-widget' ),
 			array(
 				'classname'   => 'zoom-twitter-widget',
-				'description' => __( 'Displays a Twitter Timeline.', 'wpzoom-twitter-widget' ),
+				'description' => __( 'Displays a Twitter Timeline.', 'zoom-twitter-widget' ),
 			)
 		);
 
 		$this->defaults = array(
-			'title'                => esc_html__( 'Tweets', 'wpzoom-twitter-widget' ),
+			'title'                => esc_html__( 'Tweets', 'zoom-twitter-widget' ),
 			'tweet-limit'          => 5,
 			'screen-name'          => '',
 			'show-timestamp'       => true,
 			'show-follow-button'   => true,
 			'show-followers-count' => true
 		);
+
+		if ( is_active_widget( false, false, $this->id_base ) || is_active_widget( false, false, 'monster' ) ) {
+			add_action( 'wp_footer', array( $this, 'library' ) );
+		}
+	}
+
+	public function library() {
+		?>
+		<script type="text/javascript">
+			!function(d,s,id){
+				var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+				if(!d.getElementById(id)){
+					js=d.createElement(s);
+					js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js,fjs);
+				}
+			}(document,"script","twitter-wjs");
+		</script>
+	<?php
 	}
 
 	/**
@@ -50,7 +69,7 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 
 		$tweets = $this->get_tweets( $instance['screen-name'], $instance['tweet-limit'] );
 
-		if ( false === $tweets ) {
+		if ( false === $tweets || empty( $tweets ) ) {
 			$this->display_errors();
 		} else {
 			$this->display_tweets( $tweets, $instance );
@@ -101,33 +120,33 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'wpzoom-twitter-widget' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'zoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"/>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'screen-name' ); ?>"><?php esc_html_e( 'Twitter Username:', 'wpzoom-twitter-widget' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'screen-name' ); ?>"><?php esc_html_e( 'Twitter Username:', 'zoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'screen-name' ); ?>" name="<?php echo $this->get_field_name( 'screen-name' ); ?>" type="text" value="<?php echo esc_attr( $instance['screen-name'] ); ?>"/>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'tweet-limit' ); ?>"><?php esc_html_e( '# of Tweets Shown:', 'wpzoom-twitter-widget' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'tweet-limit' ); ?>"><?php esc_html_e( '# of Tweets Shown:', 'zoom-twitter-widget' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'tweet-limit' ); ?>" name="<?php echo $this->get_field_name( 'tweet-limit' ); ?>" type="number" min="1" max="20" value="<?php echo esc_attr( $instance['tweet-limit'] ); ?>"/>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-timestamp'] ); ?> id="<?php echo $this->get_field_id( 'show-timestamp' ); ?>" name="<?php echo $this->get_field_name( 'show-timestamp' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-timestamp' ); ?>"><?php _e( 'Show Timestamp', 'wpzoom-twitter-widget' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-timestamp' ); ?>"><?php _e( 'Show Timestamp', 'zoom-twitter-widget' ); ?></label>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-follow-button'] ); ?> id="<?php echo $this->get_field_id( 'show-follow-button' ); ?>" name="<?php echo $this->get_field_name( 'show-follow-button' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-follow-button' ); ?>"><?php _e(' Display Follow me button', 'wpzoom-twitter-widget' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-follow-button' ); ?>"><?php _e(' Display Follow me button', 'zoom-twitter-widget' ); ?></label>
 		</p>
 
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['show-followers-count'] ); ?> id="<?php echo $this->get_field_id( 'show-followers-count' ); ?>" name="<?php echo $this->get_field_name( 'show-followers-count' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'show-followers-count' ); ?>"><?php _e(' Show follower count? ', 'wpzoom-twitter-widget'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-followers-count' ); ?>"><?php _e(' Show follower count? ', 'zoom-twitter-widget'); ?></label>
 		</p>
 
 	<?php
@@ -171,14 +190,13 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 		$show_follow_button   = $instance['show-follow-button'];
 		$show_followers_count = $instance['show-followers-count'];
 
-		if ( ! $show_follow_button ) return;
+		if ( ! $show_follow_button || empty( $screen_name ) ) return;
 
 		?>
 		<div class="zoom-twitter-widget__follow-me">
 			<a class="twitter-follow-button" href="https://twitter.com/<?php echo esc_attr( $screen_name ); ?>" data-show-count="<?php echo ($show_followers_count ? 'true' : 'false'); ?>">
 				Follow @<?php echo esc_html( $screen_name ); ?>
 			</a>
-			<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 		</div>
 		<?php
 	}
@@ -199,12 +217,12 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 				<?php
 				if ( 404 == $this->connection->lastHttpCode() ) {
 					printf(
-						__( 'Twitter Widget: Non-existent username.', 'wpzoom-twitter-widget' )
+						__( 'Twitter Widget: Non-existent username.', 'zoom-twitter-widget' )
 					);
 				} else {
 					printf(
-						__( 'Twitter Widget misconfigured, check <a href="%1$s" target="_blank">settings page</a> and <a href="%2$s" target="_blank">read instructions</a>. Error code: %3$s.', 'wpzoom-twitter-widget' ),
-						admin_url( 'options-general.php?page=wpzoom_twitter_widget' ),
+						__( 'Twitter Widget misconfigured, check <a href="%1$s" target="_blank">settings page</a> and <a href="%2$s" target="_blank">read instructions</a>. Error code: %3$s.', 'zoom-twitter-widget' ),
+						admin_url( 'options-general.php?page=zoom_twitter_widget' ),
 						'http://www.wpzoom.com/docs/twitter-widget-with-api-version-1-1-setup-instructions/',
 						$this->connection->lastHttpCode()
 					);
@@ -232,10 +250,10 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 
 		require_once dirname( __FILE__ ) . '/twitteroauth/WPZOOM_Twitter_OAuth.php';
 
-		$consumer_key        = get_option( 'wpzoom_twitter_widget_consumer_key' );
-		$consumer_secret     = get_option( 'wpzoom_twitter_widget_consumer_secret' );
-		$access_token        = get_option( 'wpzoom_twitter_widget_access_token' );
-		$access_token_secret = get_option( 'wpzoom_twitter_widget_access_token_secret' );
+		$consumer_key        = get_option( 'zoom_twitter_widget_consumer_key' );
+		$consumer_secret     = get_option( 'zoom_twitter_widget_consumer_secret' );
+		$access_token        = get_option( 'zoom_twitter_widget_access_token' );
+		$access_token_secret = get_option( 'zoom_twitter_widget_access_token_secret' );
 
 		$this->connection = new WPZOOM_TwitterOAuth_TwitterOAuth( $consumer_key, $consumer_secret, $access_token, $access_token_secret );
 
@@ -279,7 +297,7 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 
 	protected function human_time_diff_maybe( $timestamp ) {
 		if ( ( abs( time() - $timestamp ) ) < 86400 ) {
-			return sprintf( __( '%1$s ago', 'wpzoom-twitter-widget' ), human_time_diff( $timestamp ) );
+			return sprintf( __( '%1$s ago', 'zoom-twitter-widget' ), human_time_diff( $timestamp ) );
 		} else {
 			return mysql2date( get_option( 'date_format' ), $timestamp );
 		}
@@ -294,12 +312,12 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 	}
 
 	private function settings_changed() {
-		$consumer_key        = get_option( 'wpzoom_twitter_widget_consumer_key' );
-		$consumer_secret     = get_option( 'wpzoom_twitter_widget_consumer_secret' );
-		$access_token        = get_option( 'wpzoom_twitter_widget_access_token' );
-		$access_token_secret = get_option( 'wpzoom_twitter_widget_access_token_secret' );
+		$consumer_key        = get_option( 'zoom_twitter_widget_consumer_key' );
+		$consumer_secret     = get_option( 'zoom_twitter_widget_consumer_secret' );
+		$access_token        = get_option( 'zoom_twitter_widget_access_token' );
+		$access_token_secret = get_option( 'zoom_twitter_widget_access_token_secret' );
 
-		$settings_hash = get_option( 'wpzoom_twitter_widget_settings_hash' );
+		$settings_hash = get_option( 'zoom_twitter_widget_settings_hash' );
 
 		$new_settings_hash = md5( $consumer_key . $consumer_secret . $access_token . $access_token_secret );
 
@@ -307,7 +325,7 @@ class Wpzoom_Twitter_Widget extends WP_Widget {
 			return false;
 		}
 
-		update_option( 'wpzoom_twitter_widget_settings_hash', $new_settings_hash );
+		update_option( 'zoom_twitter_widget_settings_hash', $new_settings_hash );
 
 		return true;
 	}
