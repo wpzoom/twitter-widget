@@ -195,7 +195,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 		?>
 		<div class="zoom-twitter-widget__follow-me">
 			<a class="twitter-follow-button" href="https://twitter.com/<?php echo esc_attr( $screen_name ); ?>" data-show-count="<?php echo ($show_followers_count ? 'true' : 'false'); ?>">
-				Follow @<?php echo esc_html( $screen_name ); ?>
+				<?php _e( 'Follow &commat;', 'zoom-twitter-widget' ); echo esc_html( $screen_name ); ?>
 			</a>
 		</div>
 		<?php
