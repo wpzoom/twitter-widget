@@ -268,7 +268,7 @@ class WPZOOM_TwitterOAuth_Request
      * @param string|null $realm
      *
      * @return string
-     * @throws TwitterOAuthException
+     * @throws WPZOOM_TwitterOAuthException
      */
     public function toHeader($realm = null)
     {
@@ -285,7 +285,7 @@ class WPZOOM_TwitterOAuth_Request
                 continue;
             }
             if (is_array($v)) {
-                throw new TwitterOAuthException('Arrays not supported in headers');
+                throw new WPZOOM_TwitterOAuthException('Arrays not supported in headers');
             }
             $out .= ($first) ? ' ' : ',';
             $out .= WPZOOM_TwitterOAuth_Util::urlencodeRfc3986($k) . '="' . WPZOOM_TwitterOAuth_Util::urlencodeRfc3986($v) . '"';

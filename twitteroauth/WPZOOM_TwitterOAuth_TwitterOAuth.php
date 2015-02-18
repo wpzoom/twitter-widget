@@ -210,7 +210,7 @@ class WPZOOM_TwitterOAuth_TwitterOAuth
      * @param array  $parameters
      *
      * @return array
-     * @throws TwitterOAuthException
+     * @throws WPZOOM_TwitterOAuthException
      */
     public function oauth($path, array $parameters = array())
     {
@@ -224,7 +224,7 @@ class WPZOOM_TwitterOAuth_TwitterOAuth
 
             return $response;
         } else {
-            throw new TwitterOAuthException($result);
+            throw new WPZOOM_TwitterOAuthException($result);
         }
     }
 
@@ -298,7 +298,7 @@ class WPZOOM_TwitterOAuth_TwitterOAuth
      * @param array $parameters
      *
      * @return string
-     * @throws TwitterOAuthException
+     * @throws WPZOOM_TwitterOAuthException
      */
     private function oAuthRequest($url, $method, array $parameters)
     {
@@ -321,7 +321,7 @@ class WPZOOM_TwitterOAuth_TwitterOAuth
      * @param $postfields
      *
      * @return string
-     * @throws TwitterOAuthException
+     * @throws WPZOOM_TwitterOAuthException
      */
     private function request($url, $method, $headers, $postfields)
     {
@@ -368,11 +368,11 @@ class WPZOOM_TwitterOAuth_TwitterOAuth
         $curlErrno = curl_errno($curlHandle);
         switch ($curlErrno) {
             case 28:
-                throw new TwitterOAuthException('Request timed out.');
+                throw new WPZOOM_TwitterOAuthException('Request timed out.');
             case 51:
-                throw new TwitterOAuthException('The remote servers SSL certificate or SSH md5 fingerprint failed validation.');
+                throw new WPZOOM_TwitterOAuthException('The remote servers SSL certificate or SSH md5 fingerprint failed validation.');
             case 56:
-                throw new TwitterOAuthException('Response from server failed or was interrupted.');
+                throw new WPZOOM_TwitterOAuthException('Response from server failed or was interrupted.');
         }
 
         $this->lastHttpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
