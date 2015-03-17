@@ -170,7 +170,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 						<?php if ( $instance['show-timestamp'] ) : ?>
 
 							<a class="zoom-twitter-widget__item-permalink" href="<?php echo esc_url( $link ); ?>">
-								<time class="zoom-twitter-widget__item-timestamp" datetime="<?php echo esc_attr( mysql2date( 'c', $time ) ); ?>">
+								<time class="zoom-twitter-widget__item-timestamp" datetime="<?php echo esc_attr( date( 'c', $time ) ); ?>">
 									<?php echo $this->human_time_diff_maybe( $time ); ?>
 								</time>
 							</a>
@@ -299,7 +299,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 		if ( ( abs( time() - $timestamp ) ) < 86400 ) {
 			return sprintf( __( '%1$s ago', 'zoom-twitter-widget' ), human_time_diff( $timestamp ) );
 		} else {
-			return mysql2date( get_option( 'date_format' ), $timestamp );
+			return date( get_option( 'date_format' ), $timestamp );
 		}
 	}
 
