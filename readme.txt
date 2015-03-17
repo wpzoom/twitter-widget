@@ -32,5 +32,8 @@ you will have to wait until cache expires.
 
 == Changelog ==
 
+= 1.0.1 =
+* Bug Fix: Show real tweet date.
+
 = 1.0 =
 * Initial release.
