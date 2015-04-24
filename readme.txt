@@ -1,9 +1,9 @@
 === Twitter Widget by WPZOOM ===
-Contributors: wpzoom, nvartolomei
+Contributors: WPZOOM, nvartolomei
 Donate link: http://wpzoom.com/
 Tags: twitter, widget, timeline, social networks, latest tweets
 Requires at least: 3.4
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
