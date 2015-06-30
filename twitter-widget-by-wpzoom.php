@@ -6,7 +6,7 @@
  * Description: Displays a Twitter Feed that you can fully customize via CSS.
  * Author: WPZOOM
  * Author URI: http://wpzoom.com/
- * Version: 1.0.1
+ * Version: 1.0.2
  * License: GPLv2 or later
 */
 

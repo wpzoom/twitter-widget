@@ -32,6 +32,9 @@ you will have to wait until cache expires.
 
 == Changelog ==
 
+= 1.0.2 =
+* Bug Fix: Don't show a PHP Fatal Error when Twitter API keys are wrong.
+
 = 1.0.1 =
 * Bug Fix: Show real tweet date.
 
