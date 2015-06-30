@@ -11,6 +11,11 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 	 */
 	protected $connection;
 
+	/**
+	 * @var int
+	 */
+	protected $lastHttpCode;
+
 	public function __construct() {
 		parent::__construct(
 			'zoom_twitter_widget',
@@ -207,7 +212,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 	 * @return void
 	 */
 	protected function display_errors() {
-		if ( 200 == $this->connection->lastHttpCode() ) {
+		if ( 200 == $this->lastHttpCode ) {
 			return;
 		}
 
@@ -215,7 +220,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 			?>
 			<p>
 				<?php
-				if ( 404 == $this->connection->lastHttpCode() ) {
+				if ( 404 == $this->lastHttpCode ) {
 					printf(
 						__( 'Twitter Widget: Non-existent username.', 'zoom-twitter-widget' )
 					);
@@ -224,7 +229,7 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 						__( 'Twitter Widget misconfigured, check <a href="%1$s" target="_blank">settings page</a> and <a href="%2$s" target="_blank">read instructions</a>. Error code: %3$s.', 'zoom-twitter-widget' ),
 						admin_url( 'options-general.php?page=zoom_twitter_widget' ),
 						'http://www.wpzoom.com/docs/twitter-widget-with-api-version-1-1-setup-instructions/',
-						$this->connection->lastHttpCode()
+						$this->lastHttpCode
 					);
 				}
 				?>
@@ -245,6 +250,8 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 		$transient = 'zoom_twitter_t6e_' . $screen_name . '_' . $tweet_limit;
 
 		if ( false !== ( $cache = get_transient( $transient ) ) && ( ! $this->settings_changed() ) ) {
+			$this->lastHttpCode = get_transient( 'zoom_twitter_t6e_lastHttpCode' );
+
 			return $cache;
 		}
 
@@ -264,6 +271,9 @@ class Zoom_Twitter_Timeline_Widget extends WP_Widget {
 			'contributor_details' => false,
 			'include_entities'    => false
 		) );
+
+		$this->lastHttpCode = $this->connection->lastHttpCode();
+		set_transient( 'zoom_twitter_t6e_lastHttpCode', $this->lastHttpCode );
 
 		if ( 200 !== $this->connection->lastHttpCode() ) {
 			// throttle for 60 seconds
